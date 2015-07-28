@@ -1,0 +1,23 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.log
+
+# Intellij
+.idea/
+*.iml
+*.iws
+
+# Maven
+log/
+target/
+
+#gradle
+.gradle/
+/classes
+/build
+/out
+/bin
