@@ -3,6 +3,7 @@ package br.com.desbravador.entity;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import org.springframework.data.domain.Persistable;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,7 +14,7 @@ import java.io.Serializable;
 @MappedSuperclass
 @JsonInclude(Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Model<ID extends Serializable> {
+public class Model<ID extends Serializable> implements Persistable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,6 +23,7 @@ public class Model<ID extends Serializable> {
     @Version
     protected Integer version;
 
+    @Override
     public ID getId() {
         return id;
     }
@@ -36,5 +38,10 @@ public class Model<ID extends Serializable> {
 
     public void setVersion(Integer version) {
         this.version = version;
+    }
+
+    @Override
+    public boolean isNew() {
+        return id == null;
     }
 }
